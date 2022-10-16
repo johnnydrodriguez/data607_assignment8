@@ -1,0 +1,37 @@
+{
+"books": {
+	"book": [
+		{
+		"isbn": "0887308856",
+		"title": "Hidden Order The Economics of Everyday Life",
+		"publisher": "Harper Collins",
+		"authors": {
+			"authorname1": "David Friedman"
+				},
+		"_form": "paperback",
+		"_USprice": "14"
+		},
+		{
+		"isbn": "0142000280",
+		"title": "Getting Things Done",
+		"publisher": "Penguin Books",
+		"authors": {
+			"authorname1": "David Allen"
+				},
+		"_form": "paperback",
+		"_USprice": "15"
+		},
+		{
+		"isbn": "9781583671559",
+		"title": "the Politics of Immigration",
+		"publisher": "Monthly Review Press",
+		"authors": {
+			"authorname1": "Jane Guskin",
+			"authorname2": "David Wilson"
+				},
+		"_form": "paperback",
+		"_USprice": "11.95"
+		}
+		]
+	}
+}

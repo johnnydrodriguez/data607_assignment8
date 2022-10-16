@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<books>
+	<book form='paperback' USprice="14">
+		<isbn>0887308856</isbn>
+		<title>Hidden Order The Economics of Everyday Life</title>
+		<publisher>Harper Collins</publisher>
+		<authors>
+		    <authorname1>David Friedman</authorname1>
+		</authors>
+	</book>
+	<book form='paperback' USprice="15">
+		<isbn>0142000280</isbn>
+		<title>Getting Things Done</title>
+		<publisher>Penguin Books</publisher>
+		<authors>
+		    <authorname1>David Allen</authorname1>
+		</authors>
+	</book>
+	<book form='paperback' USprice="11.95">
+		<isbn>9781583671559</isbn>
+		<title>the Politics of Immigration</title>
+		<publisher>Monthly Review Press</publisher>
+		<authors>
+		    <authorname1>Jane Guskin</authorname1>
+		    <authorname2>David Wilson</authorname2>
+		</authors>
+	</book>
+</books>
