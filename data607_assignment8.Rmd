@@ -1,0 +1,158 @@
+---
+title: "Data607_Assignment8"
+author: "Johnny Rodriguez"
+date: "2022-10-16"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    toc_collapsed: true
+    toc_depth: 3
+    number_sections: false
+    theme: cosmo
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+<br/>
+
+## Introduction
+Three separate XML, JSON, and HTML files where created and uploaded to githubs.  Each file was read into R and converted into a dataframe.
+
+<br/>
+
+----
+
+## XMl File to Data Frame Conversion 
+
+The source xml file is located at: https://raw.githubusercontent.com/johnnydrodriguez/data607_assignment8/main/books.xml
+
+This conversion used the RCurl and XML packages.
+
+#####  **Note:** The RCurl was required to properly read the XML format.
+
+```{r}
+
+# Install the packages
+install.packages("XML", repos = "http://cran.us.r-project.org", quiet = T)
+install.packages("RCurl", repos = "http://cran.us.r-project.org", quiet = T)
+
+# Load the libraries
+library(XML)
+library(RCurl)
+
+# RCurl ensures that the XML file is formatted properly when read. 
+myxml = 'https://raw.githubusercontent.com/johnnydrodriguez/data607_assignment8/main/books.xml'
+mybooksxml <- getURL(myxml)
+
+# Parse the read XML file and view the XML structure
+mybooksxml <- xmlTreeParse(mybooksxml)
+xmlRoot(mybooksxml)
+
+# Convert the XML to a dataframe.  The DF is transposed to transform it into the preferable long format.
+mybooksxml_df <- data.frame(t(xmlToList(mybooksxml)))
+
+# Confirm the class and view the resulting dataframe
+class(mybooksxml_df)
+knitr::kable(mybooksxml_df)
+
+```
+
+<br/>
+
+---
+
+## JSON File to Dataframe Conversion
+
+The source file is located at:
+https://raw.githubusercontent.com/johnnydrodriguez/data607_assignment8/main/books.json
+
+This conversion used the jsonlite package.  Please note the json conversion included separate columns for the attribute. The Kable table print truncates the table columns.
+
+
+```{r}
+
+# Install package
+install.packages("jsonlite", repos = "http://cran.us.r-project.org", quiet = T)
+
+# Load the library
+library("jsonlite")
+
+# Read the the json file and verify the format
+mybooksjs <- fromJSON("https://raw.githubusercontent.com/johnnydrodriguez/data607_assignment8/main/books.json")
+toJSON(mybooksjs, pretty = TRUE)
+
+
+
+# Convert the json to data frame
+mybooksjs_df<- as.data.frame(mybooksjs)
+
+# Confirm the class and view the resulting dataframe.  
+class(mybooksjs_df)
+knitr::kable(mybooksjs_df)
+
+
+```
+
+
+<br/>
+
+---
+
+## HTML File to Dataframe Conversion
+
+The source file is located at:
+https://raw.githubusercontent.com/johnnydrodriguez/data607_assignment8/main/books.html
+
+This conversion uses the same packages as the XML conversion - RCurl and XML
+
+
+```{r}
+
+# RCurl ensures that the HTML file is formatted properly when read. 
+myhtml = 'https://raw.githubusercontent.com/johnnydrodriguez/data607_assignment8/main/books.html'
+mybookshtml <- getURL(myhtml)
+
+# Parse the read HTML file and view the HTML structure
+mybookshtmlstr<- htmlTreeParse(mybookshtml)
+xmlRoot(mybookshtmlstr)
+
+# Convert the HTML to a dataframe.    
+mybookshtml_df <- data.frame(readHTMLTable(mybookshtml))
+
+# Confirm the class and view the resulting dataframe
+class(mybookshtml_df)
+knitr::kable(mybookshtml_df)
+
+
+```
+
+<br/>
+
+---
+
+## Conclusions
+
+Even with clean, manually created XML and HTML files, these file formats are very sensitive to reading and parsing using various packages. Initially, I assumed the reading, parsing and dataframe conversion would be interchangeable between packages. The XML2 package was able to read the XML directly from the url but the differing parsing technique of XMLParser was not ideal for df transformation. The XML package required RCurl before the format could be properly.  The difference between XML, XMl2 and XMLParser packages made it particularly challenging to get the attributes from node and adding them to dataframe columns.
+
+To get the XML in the long format one read, it was transposed. This df would require additional transformation via tidyverse to further clean up the dataframe to split and rename columns.
+
+<br/>
+
+The JSON conversion was the most straight forward for the (admittedly) very json clean file.  It automatically read the node attributes and transformed them to columns joined to their corresponding nodes in the dataframe. The final df was relatively clean.
+
+<br/>
+
+The HTML behaved very similarly to the XML. The extracted HTML table did not need to be transposed but it would need additional tidyverse transformation to split and rename columns.
+
+
+
+
+
+
+
+
+
+
+
